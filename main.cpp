@@ -1,9 +1,70 @@
 #include <iostream>
-#include <deque>
+#include <fstream>
 #include <vector>
-#include "process.h"
+#include <string>
+#include "process.h"      
 using namespace std;
 
+void fcfs(std::vector<Process> processes);
+void sjf(std::vector<Process> processes);
+void srtf(std::vector<Process> processes);
+void priority(std::vector<Process> processes);
+void rr(std::vector<Process> processes, int quantum);
+
+// This program reads test cases for different CPU scheduling algorithms and outputs Gantt charts and metrics.
+// To provide input, redirect a text file containing test cases to the program:
+// E.g. ./program < input.txt
+
 int main() {
-    
+    int numTestCases;
+    if (!(cin >> numTestCases)) return 0;
+
+    // Loop through each test case, reading its processes and algorithm
+    // then run the appropriate scheduling algorithm
+    for (int i = 1; i <= numTestCases; ++i) {
+        int numProcesses;
+        string algoName;
+        
+        if (!(cin >> numProcesses >> algoName)) break;
+
+        vector<Process> processList;
+        int quantum = 0;
+
+        // quantum only applies to round robin
+        if (algoName == "RR") {
+            cin >> quantum;
+        }
+
+        // for each process, read its arrival time, burst time, and nice level
+        for (int j = 0; j < numProcesses; ++j) {
+            Process p;
+            p.index = j; /
+            cin >> p.arrivalTime >> p.burstTime >> p.niceLevel;
+            
+            p.remainingBurstTime = p.burstTime;                 
+            p.preempted = false;                                // tracks if process has been preempted
+            
+            processList.push_back(p);
+        }
+
+        cout << i << " " << algoName << std::endl;              // print test case # and algorithm
+
+        // select appripriate algorithm to process input text
+        if (algoName == "FCFS") {
+            fcfs(processList);
+        } 
+        else if (algoName == "SJF") {
+            sjf(processList, quantum);
+        }
+        else if (algoName == "SRTF") {
+            srtf(processList, quantum);
+        }
+        else if (algoName == "P") {
+            priority(processList, quantum);
+        }
+        else if (algoName == "RR") {
+            rr(processList, quantum);
+        }
+    }
+    return 0;
 }
