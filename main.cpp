@@ -54,13 +54,13 @@ int main() {
             fcfs(processList);
         } 
         else if (algorithm == "SJF") {
-            sjf(processList, quantum);
+            sjf(processList);
         }
         else if (algorithm == "SRTF") {
-            srtf(processList, quantum);
+            srtf(processList);
         }
         else if (algorithm == "P") {
-            priority(processList, quantum);
+            priority(processList);
         }
         else if (algorithm == "RR") {
             rr(processList, quantum);
