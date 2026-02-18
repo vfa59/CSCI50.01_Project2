@@ -23,22 +23,22 @@ int main() {
     // then run the appropriate scheduling algorithm
     for (int i = 1; i <= numTestCases; ++i) {
         int numProcesses;
-        string algoName;
+        string algorithm;
         
-        if (!(cin >> numProcesses >> algoName)) break;
+        if (!(cin >> numProcesses >> algorithm)) break;
 
         vector<Process> processList;
         int quantum = 0;
 
         // quantum only applies to round robin
-        if (algoName == "RR") {
+        if (algorithm == "RR") {
             cin >> quantum;
         }
 
         // for each process, read its arrival time, burst time, and nice level
         for (int j = 0; j < numProcesses; ++j) {
             Process p;
-            p.index = j; /
+            p.index = j; 
             cin >> p.arrivalTime >> p.burstTime >> p.niceLevel;
             
             p.remainingBurstTime = p.burstTime;                 
@@ -47,22 +47,22 @@ int main() {
             processList.push_back(p);
         }
 
-        cout << i << " " << algoName << std::endl;              // print test case # and algorithm
+        cout << i << " " << algorithm << std::endl;              // print test case # and algorithm
 
         // select appripriate algorithm to process input text
-        if (algoName == "FCFS") {
+        if (algorithm == "FCFS") {
             fcfs(processList);
         } 
-        else if (algoName == "SJF") {
+        else if (algorithm == "SJF") {
             sjf(processList, quantum);
         }
-        else if (algoName == "SRTF") {
+        else if (algorithm == "SRTF") {
             srtf(processList, quantum);
         }
-        else if (algoName == "P") {
+        else if (algorithm == "P") {
             priority(processList, quantum);
         }
-        else if (algoName == "RR") {
+        else if (algorithm == "RR") {
             rr(processList, quantum);
         }
     }
