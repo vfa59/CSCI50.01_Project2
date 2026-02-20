@@ -21,7 +21,7 @@ struct TestCase {
 };
 
 // Sorts processes by arrival time, breaking ties using process index
-void sortProcesses(vector<Process> &processes) {
+inline void sortProcesses(vector<Process> &processes) {
     for (int i = 0; i < processes.size() - 1; i++) {
         int minIndex = i;
 
