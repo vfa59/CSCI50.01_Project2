@@ -9,6 +9,7 @@ void srtf(vector<Process> processes) {
 
     int numProcesses = processes.size();
 
+    
     for (int i = 0; i < numProcesses; i++) {
         processes[i].remainingBurstTime = processes[i].burstTime;
     }
@@ -30,7 +31,7 @@ void srtf(vector<Process> processes) {
         int shortestIdx = -1;
 
         for (int i = 0; i < numProcesses; i++){
-            // checks if the process has arrived or have remaining burst time left
+            // checks if the process has arrived and have remaining burst time left
             if (processes[i].arrivalTime <= currentElapsedTime && processes[i].remainingBurstTime > 0) {
                 // compare to current shortest 
                 if (shortestIdx == -1 || processes[i].remainingBurstTime < processes[shortestIdx].remainingBurstTime) {
@@ -45,11 +46,12 @@ void srtf(vector<Process> processes) {
             continue;
         }
 
-        // get original index
+        // get original index of ready process
         int originalIdx = processes[shortestIdx].index;
 
         // switching to another process
         if (shortestIdx != currentIdx) {
+            // compute duration of previous process
             if (currentIdx != -1) {
                 int duration = currentElapsedTime - burstStart;
                 if (duration > 0) {
@@ -61,6 +63,7 @@ void srtf(vector<Process> processes) {
             currentIdx = shortestIdx;
             burstStart = currentElapsedTime;
 
+            // if first time the process is executed
             if (responseTimes[originalIdx] == -1) {
                 responseTimes[originalIdx] = currentElapsedTime - processes[shortestIdx].arrivalTime;
             }
